@@ -23,7 +23,7 @@ jobs:
     - name: Convert Markdown to HTML
       run: |
         echo "<html><body>" > index.html
-        markdown cv.md >> index.html
+        markdown_py cv.md >> index.html
         echo "</body></html>" >> index.html
 
     - name: Deploy to GitHub Pages
