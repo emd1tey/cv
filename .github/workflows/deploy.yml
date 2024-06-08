@@ -22,9 +22,9 @@ jobs:
 
     - name: Convert Markdown to HTML
       run: |
-        echo "<html><body>" > cv.html
-        markdown_py cv.md >> cv.html
-        echo "</body></html>" >> cv.html
+        echo "<html><body>" > index.html
+        markdown_py cv.md >> index.html
+        echo "</body></html>" >> index.html
 
   deploy:
     # Add a dependency to the build job
