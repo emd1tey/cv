@@ -1,1 +1,7 @@
 markdown
+fastapi 
+uvicorn 
+geopy 
+httpx
+gunicorn
+fpdf2
