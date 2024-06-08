@@ -1,8 +1,10 @@
 # CV 
-# Anatoly Sakalousky
+
 **System Engineer | DevOps**
+**Resume in PDF:** [resume.pdf](/cv/resume.pdf)
 
 ## Personal Details
+- **Name:** Anatoly Sakalousky
 - **Location:** Gdansk
 - **Email:** sakalouski.av@gmail.com
 - **Phone:** +48 507581760

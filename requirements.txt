@@ -8,3 +8,8 @@ fpdf2
 mkdocs
 mkdocs-awesome-pages-plugin
 mkdocs-material
+flake8
+isort
+pre-commit
+md2pdf
+reportlab

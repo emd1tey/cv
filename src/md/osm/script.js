@@ -1,5 +1,5 @@
 async function fetchDistances() {
-    const response = await fetch('/distances');
+    const response = await fetch('/api/distances');
     return response.json();
 }
 
