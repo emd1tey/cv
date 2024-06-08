@@ -7,6 +7,7 @@ from geopy.geocoders import Nominatim
 from pydantic import BaseModel
 from typing import List
 import os
+import subprocess
 import markdown
 from fpdf import FPDF
 
@@ -26,7 +27,7 @@ class CityDistance(BaseModel):
     distance_to_gdansk: float
 
 
-@app.get("/distances", response_model=List[CityDistance])
+@app.get("/api/distances", response_model=List[CityDistance])
 async def get_distances():
     cities = [
         "Warsaw", "Krakow", "Gdansk", "Lodz", "Wroclaw", "Poznan", "Szczecin", 
@@ -53,7 +54,7 @@ async def get_distances():
     return distances
 
 async def create_cv():
-    markdown_file_path = "cv.md" 
+    markdown_file_path = "wiki/cv.md" 
 
     if not os.path.exists(markdown_file_path):
         raise HTTPException(status_code=404, detail="Markdown file not found")
@@ -92,6 +93,7 @@ async def create_cv():
 
 
 # Serve the static files
+app.mount("/wiki", StaticFiles(directory="site", html=True), name="wiki")
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 if __name__ == "__main__":

@@ -5,3 +5,6 @@ geopy
 httpx
 gunicorn
 fpdf2
+mkdocs
+mkdocs-awesome-pages-plugin
+mkdocs-material
