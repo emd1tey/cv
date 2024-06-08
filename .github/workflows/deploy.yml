@@ -26,6 +26,12 @@ jobs:
         markdown_py cv.md >> index.html
         echo "</body></html>" >> index.html
 
+    - uses: actions/upload-artifact@v4
+      with:
+        name: github-pages
+        path: static
+        if-no-files-found: error
+
   deploy:
     # Add a dependency to the build job
     needs: build
