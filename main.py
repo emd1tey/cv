@@ -1,3 +1,4 @@
+import argparse
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -51,8 +52,7 @@ async def get_distances():
     
     return distances
 
-@app.on_event("startup")
-async def startup_event():
+async def create_cv():
     markdown_file_path = "cv.md" 
 
     if not os.path.exists(markdown_file_path):
@@ -94,3 +94,15 @@ async def startup_event():
 # Serve the static files
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Convert Markdown to HTML and PDF")
+    parser.add_argument(
+        "--convert", 
+        action="store_true", 
+        help="Convert Markdown file to HTML and PDF"
+    )
+    args = parser.parse_args()
+
+    if args.convert:
+        import asyncio
+        asyncio.run(create_cv())
