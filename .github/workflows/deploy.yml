@@ -38,7 +38,7 @@ jobs:
       run: mkdocs build
 
     - name: Convert CV html to pdf
-      run: python -m src.utils.cv_generator create_cv
+      run: python -m src.__main__ generate_cv
 
     - name: Setup Pages
       id: pages

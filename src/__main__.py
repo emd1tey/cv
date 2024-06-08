@@ -1,5 +1,6 @@
 # src/__main__.py
 import logging
+import argparse
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -13,10 +14,10 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await create_cv(app)  # Pass FastAPI app instance to the function
-    logging.info("Application startup")
+    await create_cv()  # No need to pass FastAPI app instance here
+    logger.info("Application startup")
     yield
-    logging.info("Application shutdown")
+    logger.info("Application shutdown")
 
 app = FastAPI(lifespan=lifespan)
 
@@ -27,5 +28,17 @@ app.include_router(cv.router)
 # Serve the static files
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
+def main():
+    parser = argparse.ArgumentParser(description="CV Generator")
+    parser.add_argument('command', choices=['runserver', 'generate_cv'], help="Command to run")
+    args = parser.parse_args()
+
+    if args.command == 'runserver':
+        uvicorn.run("src.__main__:app", host="0.0.0.0", port=8000, reload=True)
+    elif args.command == 'generate_cv':
+        import asyncio
+        asyncio.run(create_cv())
+
 if __name__ == "__main__":
-    uvicorn.run("src.__main__:app", host="0.0.0.0", port=8000, reload=True)
+    main()
+
