@@ -1,10 +1,12 @@
 # src/utils/cv_generator.py
-from fpdf import FPDF
-import markdown
-import os
 import logging
+import os
+
+import markdown
+from fpdf import FPDF
 
 logger = logging.getLogger(__name__)
+
 
 async def create_cv():
     markdown_file_path = "src/md/cv.md"
@@ -40,7 +42,7 @@ async def create_cv():
         </html>
         """
 
-        with open(html_file_path, 'w') as f:
+        with open(html_file_path, "w") as f:
             f.write(html_template)
         logger.info(f"HTML file created at: {html_file_path}")
 

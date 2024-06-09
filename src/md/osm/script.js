@@ -5,7 +5,7 @@ async function fetchDistances() {
 
 async function initMap() {
     const cities = await fetchDistances();
-    
+
     const map = L.map('map').setView([52.237049, 21.017532], 6); // Center on Poland
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -24,7 +24,7 @@ async function initMap() {
         const cityCoords = [city.latitude, city.longitude];
         const cityMarker = L.marker(cityCoords).addTo(map)
             .bindPopup(`<b>${city.city}</b><br>Distance to Krakow: ${city.distance_to_krakow.toFixed(2)} km<br>Distance to Gdansk: ${city.distance_to_gdansk.toFixed(2)} km`);
-        
+
         // Draw lines to Krakow and Gdansk
         L.polyline([cityCoords, krakowCoords], {color: 'red'}).addTo(map);
         L.polyline([cityCoords, gdanskCoords], {color: 'blue'}).addTo(map);
@@ -32,4 +32,3 @@ async function initMap() {
 }
 
 document.addEventListener('DOMContentLoaded', initMap);
-

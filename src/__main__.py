@@ -1,16 +1,19 @@
 # src/__main__.py
-import logging
 import argparse
+import logging
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from src.routes import distances, cv
+
+from src.routes import cv, distances
 from src.utils.cv_generator import create_cv
-from contextlib import asynccontextmanager
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,6 +21,7 @@ async def lifespan(app: FastAPI):
     logger.info("Application startup")
     yield
     logger.info("Application shutdown")
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -28,17 +32,21 @@ app.include_router(cv.router)
 # Serve the static files
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
+
 def main():
     parser = argparse.ArgumentParser(description="CV Generator")
-    parser.add_argument('command', choices=['runserver', 'generate_cv'], help="Command to run")
+    parser.add_argument(
+        "command", choices=["runserver", "generate_cv"], help="Command to run"
+    )
     args = parser.parse_args()
 
-    if args.command == 'runserver':
+    if args.command == "runserver":
         uvicorn.run("src.__main__:app", host="0.0.0.0", port=8000, reload=True)
-    elif args.command == 'generate_cv':
+    elif args.command == "generate_cv":
         import asyncio
+
         asyncio.run(create_cv())
+
 
 if __name__ == "__main__":
     main()
-

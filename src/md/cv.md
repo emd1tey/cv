@@ -1,4 +1,4 @@
-# CV 
+# CV
 
 **System Engineer | DevOps**
 
@@ -18,7 +18,7 @@ With 5 years of hands-on experience in maintaining and supporting server infrast
 ## Employment
 
 ### DevOps
-**Jul 2020 - Dec 2023**  
+**Jul 2020 - Dec 2023**
 *Maxbitsolution, Minsk, BY*
 
 - Added deduplication and compression to the filesystem layer for servers with static files, reducing space consumption by 25x and decreasing resource management needs, which increased the density of virtual hosts on the server.
@@ -32,7 +32,7 @@ With 5 years of hands-on experience in maintaining and supporting server infrast
 - Wrote pipelines for building iOS and Android mobile applications.
 
 ### Linux System Administrator
-**Mar 2019 - Jul 2020**  
+**Mar 2019 - Jul 2020**
 *Hoster.by, Minsk*
 
 - Support Engineer at the largest hosting provider in Belarus.
@@ -40,7 +40,7 @@ With 5 years of hands-on experience in maintaining and supporting server infrast
 - Worked with various SQL/NoSQL databases (PostgreSQL, MariaDB, MySQL, MongoDB, Redis, ClickHouse). Configured backup, monitoring, replication, and optimized configurations.
 
 ### System Administrator
-**Sep 2018 - Mar 2019**  
+**Sep 2018 - Mar 2019**
 *LLC "Datahata", Minsk, BY*
 
 - IT Support in Data Center.
@@ -48,7 +48,7 @@ With 5 years of hands-on experience in maintaining and supporting server infrast
 - Responded to incidents in the data center and resolved them 24/7.
 
 ### Support Engineer/Florist
-**Aug 2017 - May 2018**  
+**Aug 2017 - May 2018**
 *LLC "Ultraline, Minsk, BY*
 
 - IT Support for Users.
@@ -58,8 +58,8 @@ With 5 years of hands-on experience in maintaining and supporting server infrast
 - Did beautiful :)
 
 ## Education
-**Bachelor, Physics**  
-*Sep 2013 - Jun 2017*  
+**Bachelor, Physics**
+*Sep 2013 - Jun 2017*
 *Belarusian State University, Minsk*
 
 - Rational Energy
@@ -90,4 +90,3 @@ With 5 years of hands-on experience in maintaining and supporting server infrast
 - Polish
 - Russian
 - Belarusian
-

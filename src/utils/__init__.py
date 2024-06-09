@@ -2,4 +2,3 @@
 """
 Utility functions for the Organizer application.
 """
-

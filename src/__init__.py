@@ -2,4 +2,3 @@
 """
 Organizer: A FastAPI-based application for calculating distances and generating CVs.
 """
-

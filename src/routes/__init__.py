@@ -2,4 +2,3 @@
 """
 Routes for the Organizer application.
 """
-

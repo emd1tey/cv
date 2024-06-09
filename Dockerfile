@@ -17,5 +17,4 @@ USER appuser
 
 RUN mkdocs build
 
-
 CMD python -m src.__main__ runserver
