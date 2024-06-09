@@ -56,8 +56,9 @@ jobs:
     - name: Publish to Cloudflare Pages
       uses: cloudflare/pages-action@v1
       with:
+        branch: main
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        projectName: ${{ github.repository }} 
+        projectName: ${{ github.event.repository.name }}
         directory: ./static
         wranglerVersion: '3'
