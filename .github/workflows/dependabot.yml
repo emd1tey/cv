@@ -1,0 +1,43 @@
+name: "Dependabot Auto Merge and Code Quality"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 1 * * *" # Runs daily at 1 AM UTC
+
+jobs:
+  dependabot:
+    name: "Dependabot Update and Audit"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest  # Adjust this command for your test suite
+
+      - name: Run code quality checks
+        run: flake8 .  # Adjust this command for your linter
+
+      - name: Run security audit
+        run: pip-audit  # Ensure you have pip-audit installed
+
+      - name: Dependabot Auto Merge
+        uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          conflict-ignores: "**/*.md, **/*.yml"
