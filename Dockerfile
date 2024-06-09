@@ -19,5 +19,3 @@ RUN mkdocs build
 
 
 CMD python -m src.__main__ runserver
-
-#CMD ["gunicorn", "--bind", "0.0.0.0:8000", "-k", "uvicorn.workers.UvicornWorker", "src.__main__:app"]
