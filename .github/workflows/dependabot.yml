@@ -36,8 +36,3 @@ jobs:
 
       - name: Run security audit
         run: pip-audit
-
-      - name: Dependabot Auto Merge
-        uses: ahmadnassri/action-dependabot-auto-merge@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
