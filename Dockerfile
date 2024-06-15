@@ -18,4 +18,4 @@ COPY . /app
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-CMD ["python", "-m", "src.__main__", "runserver"]
+CMD ["python", "-m", "src.__main__"]
