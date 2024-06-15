@@ -3,10 +3,10 @@ name: "Dependabot Auto Merge and Code Quality"
 on:
   push:
     branches:
-      - main
+      - main1
   pull_request:
     branches:
-      - main
+      - main1
   schedule:
     - cron: "0 1 * * *" # Runs daily at 1 AM UTC
 
