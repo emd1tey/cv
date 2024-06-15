@@ -8,6 +8,7 @@ Welcome to the project documentation site!
 - `/osm/`: Serve static CV in HTML format with use Open Street Map.
 - `/wiki/`: Serve MkDocs generated documentation.
 - `/docs/`: FastAPI Swagger
+- `/cloud/`: Listing cloudflare
 
 ## About
 

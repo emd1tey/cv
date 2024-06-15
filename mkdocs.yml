@@ -24,11 +24,13 @@ nav:
   - Home: "index.html"
   - CV: "/cv"
   - Swagger: "/docs"
-  - Wiki: "/wiki/"
-  - Auto generated:
+  - Wiki:
     - ... | wiki/*.md
+  - Cloud: "/cloud"
 docs_dir: src/md
 site_dir: static
+watch:
+  - src/md/wiki
 plugins:
   - search
   - awesome-pages

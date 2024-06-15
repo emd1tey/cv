@@ -59,7 +59,7 @@ async def create_cv():
     markdown_file_path = "src/md/cv.md"
     html_file_path = os.path.join(STATIC_DIR, "cv/index.html")
     pdf_output_path = os.path.join(STATIC_DIR, OUTPUT_PDF_PATH)
-    logger.info("Generating CV")
+    logger.info(f"Generating CV: {pdf_output_path}")
 
     if os.path.exists(html_file_path) and os.path.exists(pdf_output_path):
         logger.info("HTML and PDF files already exist. Skipping generation.")
@@ -99,6 +99,8 @@ async def create_cv():
         pdf.add_page()
         pdf.write_html(html_content)
         pdf.output(pdf_output_path)
+        if os.path.isfile(pdf_output_path):
+            logger.info("File exist")
         logger.info(f"PDF file created at: {pdf_output_path}")
 
     except Exception as e:
@@ -106,14 +108,12 @@ async def create_cv():
         raise
 
 
-async def main():
-    from src.__main__ import app
-
+async def create(app):
     logging.basicConfig(level=logging.INFO)
     await create_doc(app)
-    await create_cv()
     await build_mkdocs()
+    await create_cv()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(create())
