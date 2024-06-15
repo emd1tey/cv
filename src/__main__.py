@@ -1,6 +1,9 @@
 import os
 from contextlib import asynccontextmanager
 import uvicorn
+import argparse
+import asyncio
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
@@ -32,5 +35,18 @@ app.include_router(debugs.router)
 os.makedirs(STATIC_DIR, exist_ok=True)
 app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
 
-if __name__ == "__main__":
+def run_uvicorn():
     uvicorn.run(app, host="0.0.0.0", port=EXPOSE_PORT)
+
+def run_create():
+    asyncio.run(create(app))
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run the FastAPI app or generate documentation.")
+    parser.add_argument("--create-docs", action="store_true", help="Generate documentation and CV.")
+    args = parser.parse_args()
+
+    if args.create_docs:
+        run_create()
+    else:
+        run_uvicorn()
