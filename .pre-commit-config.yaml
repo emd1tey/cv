@@ -9,3 +9,4 @@ repos:
     rev: v0.4.9  # Укажите актуальную версию
     hooks:
       - id: ruff
+        args: ["--fix"]
