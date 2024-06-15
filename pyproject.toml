@@ -115,6 +115,7 @@ gunicorn = "^22.0.0"
 opentelemetry-instrumentation-requests = "^0.46b0"
 opentelemetry-exporter-gcp-trace = "^1.6.0"
 elasticsearch = {extras = ["async"], version = "^8.14.0"}
+pytest = "^8.2.2"
 
 
 

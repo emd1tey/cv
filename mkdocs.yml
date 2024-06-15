@@ -1,6 +1,7 @@
 site_name: Organizer
 theme:
   name: material
+  logo: "logo.svg"
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -24,13 +25,14 @@ nav:
   - Home: "index.html"
   - CV: "/cv"
   - Swagger: "/docs"
-  - Wiki:
-    - ... | wiki/*.md
+  - ... | wiki/*.md
   - Cloud: "/cloud"
+  - ... | hb/*.md
 docs_dir: src/md
 site_dir: static
 watch:
   - src/md/wiki
+  - src/md/hb
 plugins:
   - search
   - awesome-pages
