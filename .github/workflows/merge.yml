@@ -1,0 +1,39 @@
+name: Auto Merge to Main
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  merge_to_main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - run: pip install --upgrade pip && pip install poetry && poetry config virtualenvs.create false && poetry install --only main --no-interaction --no-ansi
+
+      - name: Run code quality checks
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest
+
+      - name: Merge to main if tests pass
+        run: |
+          # Run your tests here
+          if [ $? -eq 0 ]; then
+            git config --global user.email "you@example.com"
+            git config --global user.name "Your Name"
+            git checkout main
+            git merge --no-ff dev -m "Automatically merged changes from dev"
+            git push origin main
+          else
+            echo "Tests failed, not merging to main."
+          fi
