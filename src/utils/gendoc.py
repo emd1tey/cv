@@ -1,4 +1,3 @@
-import asyncio
 import json
 import logging
 import os
@@ -113,7 +112,3 @@ async def create(app):
     await create_doc(app)
     await build_mkdocs()
     await create_cv()
-
-
-if __name__ == "__main__":
-    asyncio.run(create())
