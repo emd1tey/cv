@@ -20,9 +20,17 @@ theme:
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
-nav: []
+nav:
+  - Home: "index.html"
+  - CV: "/cv"
+  - Swagger: "/docs"
+  - Wiki:
+    - ... | wiki/*.md
+  - Cloud: "/cloud"
 docs_dir: src/md
 site_dir: static
+watch:
+  - src/md/wiki
 plugins:
   - search
   - awesome-pages
@@ -30,9 +38,6 @@ extra:
   status:
     new: Recently added
     deprecated: Deprecated
-  analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/squidfunk
