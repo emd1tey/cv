@@ -3,7 +3,7 @@ import logging
 
 from fastapi import APIRouter, HTTPException
 
-from src.utils.cv_generator import create_cv
+from src.utils.gendoc import create_cv
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
