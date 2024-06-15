@@ -1,6 +1,7 @@
 site_name: Organizer
 theme:
   name: material
+  logo: "logo.svg"
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -27,6 +28,8 @@ nav:
   - Wiki:
     - ... | wiki/*.md
   - Cloud: "/cloud"
+  - HappyBirthday:
+    - ... | hb/*.html
 docs_dir: src/md
 site_dir: static
 watch:
