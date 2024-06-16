@@ -28,6 +28,7 @@ nav:
   - ... | wiki/*.md
   - ... | cloud/*.md
   - ... | hb/*.md
+  - Debt: "tg"
 docs_dir: src/md
 site_dir: static
 watch:
