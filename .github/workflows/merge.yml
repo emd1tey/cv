@@ -59,15 +59,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Approve Merge Request
-        uses: octokit/request-action@v2
+        uses: octokit/request-action
         with:
           route: POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
-          pull_number: ${{ steps.create-merge-request.outputs.pull_request_number }}
+          pull_number: ${{ needs.create-merge-request.outputs.pull_request_number }}
           body: Automated approval of merge request after successful tests.
           event: APPROVE
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
 
   debug:
     runs-on: ubuntu-latest
