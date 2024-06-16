@@ -1,5 +1,6 @@
 import logging
 from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 import requests
 from src.config.settings import ZONES_URL, HEADERS
 
@@ -27,25 +28,28 @@ def get_dns_records(zone_id):
 
 @router.get("/api/dns")
 async def get_dns_data():
-    zones = get_zones()
-    result = {}
-    for zone in zones:
-        zone_name = zone['name']
-        dns_records = get_dns_records(zone['id'])
-        zone_records = []
+    try:
+        zones = get_zones()
+        result = {}
+        for zone in zones:
+            zone_name = zone['name']
+            dns_records = get_dns_records(zone['id'])
+            zone_records = []
 
-        for record in dns_records:
-            # Создаем словарь для каждой DNS записи
-            record_dict = {
-                "type": record['type'],
-                "name": record['name'],
-                "content": record['content']
-            }
-            # Добавляем запись в список для текущей зоны
-            zone_records.append(record_dict)
+            for record in dns_records:
+                record_dict = {
+                    "type": record['type'],
+                    "name": record['name'],
+                    "content": record['content']
+                }
+                zone_records.append(record_dict)
 
-        # Добавляем список записей в словарь по имени зоны
-        result[zone_name] = zone_records
+            result[zone_name] = zone_records
 
-    # Преобразуем результат в JSON формат и возвращаем его
-    return result
+        return result
+    except Exception:
+        logger.exception("/api/dns failed, check cred!!!!")
+        raise JSONResponse(
+            status_code=418,
+            content={"message": "Oops! There goes a rainbow..."},
+        )
