@@ -1,4 +1,4 @@
-name: Auto Merge to Main
+name: CI Pipeline
 
 on:
   push:
@@ -6,12 +6,26 @@ on:
       - dev
 
 jobs:
-  merge_to_main:
+  create-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto merge dev into main"
+          title: "Auto merge dev into main"
+          body: "This PR is automatically created to merge changes from dev to main."
+          base: main
+
+  build:
+    needs: create-pr
+    runs-on: ubuntu-latest
+    steps:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -25,16 +39,8 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Merge to main if tests pass
+      - name: Approve the pull request if tests pass
+        if: success()
         run: |
-          if [ $? -eq 0 ]; then
-            git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-            git config --global user.name "${GITHUB_ACTOR}"
-            git checkout main
-            git merge --no-ff dev -m "Automatically merged changes from dev"
-            git push origin main
-          else
-            echo "Tests failed, not merging to main."
-          fi
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
+          PR_NUMBER=$(gh pr list --repo ${{ github.repository }} --state open --base main --head dev --json number --jq '.[0].number')
+          gh pr review $PR_NUMBER --repo ${{ github.repository }} --approve
