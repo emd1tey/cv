@@ -1,9 +1,12 @@
 name: Deploy on PR merge to main
 
+
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+
+  workflow_dispatch:
+
 
 jobs:
   build:
