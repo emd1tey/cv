@@ -5,13 +5,71 @@ on:
   pull_request:
     branches: [main]
 
-
 permissions:
   pull-requests: write
   contents: write
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - run: |
+          pip install --upgrade pip && pip install poetry
+          poetry config virtualenvs.create false
+          poetry install --only main --no-interaction --no-ansi
+
+      - name: Run code quality checks
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest
+
+  create-merge-request:
+    runs-on: ubuntu-latest
+    needs: build
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Merge Request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: main
+          source_branch: ${{ github.ref }}
+          title: Merge ${{ github.ref }} into main
+          body: Automated merge request from ${{ github.ref }} branch.
+
+  approve-merge-request:
+    runs-on: ubuntu-latest
+    needs: create-merge-request
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Approve Merge Request
+        uses: octokit/request-action@v3
+        with:
+          route: POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          pull_number: ${{ steps.create-merge-request.outputs.pull_request_number }}
+          body: Automated approval of merge request after successful tests.
+          event: APPROVE
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  debug:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
@@ -38,52 +96,3 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-      - run: |
-          pip install --upgrade pip && pip install poetry
-          poetry config virtualenvs.create false
-          poetry install --only main --no-interaction --no-ansi
-
-      - name: Run code quality checks
-        run: ruff check .
-
-      - name: Run tests
-        run: pytest
-
-      - uses: tibdex/github-app-token@v1
-        id: generate-token
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-
-      - name: Merge dev into main
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-
-          # Проверка наличия основной ветки и её создание, если она отсутствует
-          if ! git rev-parse --verify main; then
-            git checkout -b main
-            git push origin main
-          else
-            git checkout main
-          fi
-
-          git merge dev
-          git push origin main
