@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def get_zones():
     response = requests.get(ZONES_URL, headers=HEADERS)
-    if response.status_code != 200:
+    if response.status_code >= 200:
         raise Exception(f"Error fetching zones: {response.status_code} {response.text}")
 
     zones = response.json().get('result', [])
