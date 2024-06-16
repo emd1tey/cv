@@ -59,15 +59,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Approve Merge Request
-        uses: octokit/request-action
+        uses: octokit/request-action@v2.x
         with:
-          route: POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          pull_number: ${{ needs.create-merge-request.outputs.pull_request_number }}
-          body: Automated approval of merge request after successful tests.
-          event: APPROVE
+          route: POST /repos/${{ github.repository }}/pulls/${{ needs.create-merge-request.outputs.pull_request_number }}/reviews
+          mediaType: |
+            {
+              "accept": "application/vnd.github.v3+json"
+            }
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
 
 
   debug:
