@@ -36,6 +36,14 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git checkout main
+
+          # Проверка наличия основной ветки и её создание, если она отсутствует
+          if ! git rev-parse --verify main; then
+            git checkout -b main
+            git push origin main
+          else
+            git checkout main
+          fi
+
           git merge dev
           git push origin main
