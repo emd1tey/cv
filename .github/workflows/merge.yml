@@ -21,6 +21,7 @@ jobs:
           title: "Auto merge dev into main"
           body: "This PR is automatically created to merge changes from dev to main."
           base: main
+          branch: dev
 
   build:
     needs: create-pr
@@ -34,7 +35,10 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
-      - run: pip install --upgrade pip && pip install poetry && poetry config virtualenvs.create false && poetry install --only main --no-interaction --no-ansi
+      - run: |
+          pip install --upgrade pip && pip install poetry
+          poetry config virtualenvs.create false
+          poetry install --only main --no-interaction --no-ansi
 
       - name: Run code quality checks
         run: ruff check .
@@ -44,6 +48,9 @@ jobs:
 
       - name: Approve the pull request if tests pass
         if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          sudo apt-get install -y gh
           PR_NUMBER=$(gh pr list --repo ${{ github.repository }} --state open --base main --head dev --json number --jq '.[0].number')
           gh pr review $PR_NUMBER --repo ${{ github.repository }} --approve
