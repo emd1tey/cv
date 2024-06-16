@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Approve Merge Request
-        uses: octokit/request-action
+        uses: octokit/request-action@v2.x
         with:
           route: POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews
           owner: ${{ github.repository_owner }}
