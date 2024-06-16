@@ -5,15 +5,15 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-md_dir = os.path.join("src/md", "cloud/")    
+md_dir = os.path.join("src/md", "cloud/")
 
 def make_name_clickable(records):
     """
     Make the 'name' field in each record clickable by converting it to a Markdown link.
-    
+
     Parameters:
     - records (list): List of DNS records.
-    
+
     Returns:
     - list: List of modified records with clickable 'name' fields.
     """
@@ -51,4 +51,3 @@ async def dict_to_markdown_table(data):
         paths.append(file_path)
         print(f"Created file: {file_path}")
     return paths
-
