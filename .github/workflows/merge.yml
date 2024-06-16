@@ -20,7 +20,10 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'poetry'
-      - run: poetry install
+      - run: |
+          poetry config virtualenvs.create false
+          poetry install --only main --no-interaction --no-ansi
+
       - name: Run code quality checks
         run: ruff check .
 
