@@ -51,10 +51,10 @@ jobs:
 
       - name: Set output
         run: |
-          echo ${{ steps.create_pr.outputs.pr_url }} >> $PR_URL
-          echo ${{ steps.create_pr.outputs.pr_number }} >> $PR_NUMBER
-          echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_ENV
-          echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_STATE
+          echo ${{ steps.create_pr.outputs.pr_url }} >> "$GITHUB_ENV"
+          echo ${{ steps.create_pr.outputs.pr_number }} >> "$GITHUB_ENV"
+          echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> "$GITHUB_ENV"
+          echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> "$GITHUB_ENV"
 
 
   approve-merge-request:
