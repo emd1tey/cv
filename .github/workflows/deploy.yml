@@ -2,8 +2,7 @@ name: Deploy on PR merge to main
 
 on:
   push:
-    branches:
-      - main
+    branches: ['main']
 
 
 permissions:
@@ -11,17 +10,13 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-      
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    
+
     - name: Checkout repository
       uses: actions/checkout@v4
 
@@ -57,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: github-pages
+      name: cloudflare-pages
       url: ${{steps.deployment.outputs.page_url}}
 
     steps:
