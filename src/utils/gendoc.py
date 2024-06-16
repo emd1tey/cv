@@ -13,7 +13,7 @@ from src.config.settings import OUTPUT_PDF_PATH, STATIC_DIR
 logger = logging.getLogger(__name__)
 
 
-async def create_doc(app):
+async def create_openapi(app):
     doc_dir = os.path.join(STATIC_DIR, "docs")
     os.makedirs(doc_dir, exist_ok=True)
 
@@ -30,6 +30,15 @@ async def create_doc(app):
     await write_content_to_file(os.path.join(doc_dir, "openapi.json"), api_json)
     await write_content_to_file(os.path.join(doc_dir, "index.html"), swagger_html)
 
+
+async def list_files_recursive(directory):
+    files = {}
+    for dirpath, dirnames, filenames in os.walk(directory):
+        for filename in filenames:
+            file_path = os.path.join(dirpath, filename)
+            files.append(file_path)
+            logger.info("Found file: %s", file_path)
+    return files
 
 async def write_content_to_file(filename: str, content: bytes):
     try:
@@ -107,8 +116,11 @@ async def create_cv():
         raise
 
 
-async def create(app):
-    logging.basicConfig(level=logging.INFO)
-    await create_doc(app)
-    await build_mkdocs()
-    await create_cv()
+async def create_doc(app):
+    try:
+        await create_openapi(app)
+        await build_mkdocs()
+        await create_cv()
+    except Exception as e:
+        logger.error(f"Error create_doc: {e}")
+        raise
