@@ -12,8 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run code quality checks
-        run: ruff check .
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install poetry
@@ -23,7 +21,8 @@ jobs:
           python-version: '3.12'
           cache: 'poetry'
       - run: poetry install
-
+      - name: Run code quality checks
+        run: ruff check .
 
       - name: Run tests
         run: pytest
