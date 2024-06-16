@@ -1,16 +1,18 @@
 import logging
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-
 import requests
 from src.config.settings import ZONES_URL, HEADERS
+from src.utils.mdhelp import dict_to_markdown_table
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
 def get_zones():
     try:
+        logger.info(f"ZONES_URL: {ZONES_URL} || HEADERS: {HEADERS}")
         response = requests.get(ZONES_URL, headers=HEADERS)
+        logger.info(f"{response}")
         response.raise_for_status()  # This will raise an HTTPError for bad responses (4xx and 5xx)
         zones = response.json().get('result', [])
         return zones
@@ -50,6 +52,9 @@ async def get_dns_data():
 
             result[zone_name] = zone_records
 
+        mds = await dict_to_markdown_table(result)
+        for md in mds:
+            logger.info(md)
         return result
     except Exception:
         logger.exception("/api/dns failed, check cred!!!!")
