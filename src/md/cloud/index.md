@@ -1,8 +1,8 @@
-# DNS Records
+# DNS Data
 
-Here is a table of all domains and their DNS records:
+This page displays the DNS data collected from various endpoints.
+Press the BIG RED BUTTON to start sync.
 
-<div id="dns-table-container">
-  Loading DNS records...
-</div>
-<script src="script.js"></script>
+<button onclick="location.href='/api/dns'" style="background-color:red;color:white;padding:10px;border:none;border-radius:5px;cursor:pointer;">
+  BIG RED BUTTON
+</button>

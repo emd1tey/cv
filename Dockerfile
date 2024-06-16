@@ -1,4 +1,3 @@
-# Этап сборки зависимостей
 FROM python:3.12-alpine
 
 ENV PYTHONDONTWRITEBYTECODE=1

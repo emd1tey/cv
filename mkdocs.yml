@@ -26,16 +26,18 @@ nav:
   - CV: "/cv"
   - Swagger: "/docs"
   - ... | wiki/*.md
-  - Cloud: "/cloud"
+  - ... | cloud/*.md
   - ... | hb/*.md
 docs_dir: src/md
 site_dir: static
 watch:
   - src/md/wiki
   - src/md/hb
+  - src/md/cloud
 plugins:
   - search
   - awesome-pages
+  - macros
 extra:
   status:
     new: Recently added
