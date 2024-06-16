@@ -65,6 +65,7 @@ jobs:
         env:
           PR_URL: ${{ needs.create-merge-request.outputs.pr_url }}
           PR_NUMBER: ${{ needs.create-merge-request.outputs.pr_number }}
+          GH_TOKEN: ${{ github.token }}
         run: gh pr merge "$PR_URL" --merge
 
 
