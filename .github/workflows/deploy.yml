@@ -1,8 +1,6 @@
 name: Deploy CV to Pages
 
 on:
-  push:
-    branches: ["main"]
   pull_request:
     branches:
       - main
@@ -47,7 +45,7 @@ jobs:
       run: pip-audit
 
     - name: Convert CV html to pdf
-      run: python -m src.__main__ --create-docs
+      run: python -m src.main
 
     - name: Setup Pages
       id: pages

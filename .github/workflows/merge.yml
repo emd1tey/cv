@@ -1,0 +1,54 @@
+name: CI
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main]
+
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - run: |
+          pip install --upgrade pip && pip install poetry
+          poetry config virtualenvs.create false
+          poetry install --only main --no-interaction --no-ansi
+
+      - name: Run code quality checks
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest
+
+      - name: Merge dev into main
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          # Проверка наличия основной ветки и её создание, если она отсутствует
+          if ! git rev-parse --verify main; then
+            git checkout -b main
+            git push origin main
+          else
+            git checkout main
+          fi
+
+          git merge dev
+          git push origin main
