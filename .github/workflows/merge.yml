@@ -51,8 +51,8 @@ jobs:
 
       - name: Set output
         run: |
-          echo ${{ steps.create_pr.outputs.pr_url }} >> "$GITHUB_ENV"
-          echo ${{ steps.create_pr.outputs.pr_number }} >> "$GITHUB_ENV"
+          echo "${{ steps.create_pr.outputs.pr_url }}"" >> "$GITHUB_ENV"
+          echo "${{ steps.create_pr.outputs.pr_number }}"" >> "$GITHUB_ENV"
           echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> "$GITHUB_ENV"
           echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> "$GITHUB_ENV"
 
@@ -60,7 +60,6 @@ jobs:
   approve-merge-request:
     runs-on: ubuntu-latest
     needs: create-merge-request
-    if: ${{ success() }}
 
     steps:
       - name: Checkout code
@@ -68,10 +67,8 @@ jobs:
 
       - name: Approve Merge Request
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
           PR_NUMBER: ${{ steps.create_pr.outputs.pr_number }}
-          GITHUB_ENV: $GITHUB_ENV
         run: |
           echo -e "PR_URL = $PR_URL  \n GITHUB_ENV = $GITHUB_ENV  \n GITHUB_STATE = $GITHUB_STATE" ;
           curl -X POST \
