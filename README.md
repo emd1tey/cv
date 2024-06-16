@@ -17,6 +17,39 @@ This repository contains a FastAPI application that serves a CV (Curriculum Vita
 
 ### Prerequisites
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - Docker
 - Docker Compose
 - Python 3.12
