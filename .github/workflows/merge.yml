@@ -50,7 +50,11 @@ jobs:
           pr_body: Automated merge request from ${{ github.ref }} branch.
 
       - name: Set output
-        run: echo "pull_request_url=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_ENV
+        run: !
+          echo "pull_request_url=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_ENV
+          echo "pull_request_url=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_STATE
+          echo "PR_URL = $PR_URL"
+
 
   approve-merge-request:
     runs-on: ubuntu-latest
