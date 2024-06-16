@@ -65,6 +65,7 @@ jobs:
         with:
           pre: true
           release: false
+          minor: false
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
 
