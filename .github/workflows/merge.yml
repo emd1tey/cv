@@ -52,10 +52,9 @@ jobs:
       - name: Set output
         run: |
           PR_URL = ${{ steps.create_pr.outputs.pr_url }}
-          GITHUB_STATE = ${{ steps.create_pr.outputs.pr_url }}
-          echo "pull_request_url=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_ENV
-          echo "pull_request_url=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_STATE
-          echo -e "PR_URL = $PR_URL  \nGITHUB_ENV = $GITHUB_ENV  \nGITHUB_STATE = $GITHUB_STATE"
+          PR_NUMBER = ${{ steps.create_pr.outputs.pr_number }}
+          echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_ENV
+          echo "PR_NUMBER=${{ steps.create_pr.outputs.pr_number }};PR_URL=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_STATE
 
 
   approve-merge-request:
@@ -71,11 +70,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
+          PR_NUMBER: ${{ steps.create_pr.outputs.pr_number }}
+          GITHUB_ENV: $GITHUB_ENV
         run: |
-          echo -e "PR_URL = $PR_URL  \nGITHUB_ENV = $GITHUB_ENV  \nGITHUB_STATE = $GITHUB_STATE"
-          PR_NUMBER=$(echo "${PR_URL}" | awk -F'/' '{print $NF}')
+          echo -e "PR_URL = $PR_URL  \n GITHUB_ENV = $GITHUB_ENV  \n GITHUB_STATE = $GITHUB_STATE" ;
           curl -X POST \
             -H "Authorization: token ${GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create_pr.outputs.pr_number }}/reviews \
             -d '{"event":"APPROVE"}'
