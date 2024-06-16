@@ -3,7 +3,7 @@ name: Deploy CV to Pages
 on:
   pull_request:
     branches:
-      - main
+      - main123
   workflow_dispatch:
 
 permissions:
