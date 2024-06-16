@@ -58,6 +58,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: create-merge-request
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - uses: sanjeev-labs/manage-merge@v1.0
         with:
           merge_method: "merge"
