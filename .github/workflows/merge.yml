@@ -1,4 +1,5 @@
 name: Check code with automerge
+
 on:
   push:
     branches: [dev]
