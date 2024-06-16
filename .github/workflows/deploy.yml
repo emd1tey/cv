@@ -1,8 +1,7 @@
 name: Deploy on PR merge to main
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 
