@@ -31,5 +31,3 @@ static
 .DS_Store
 
 .env
-pyproject.toml
-poetry.lock
