@@ -10,13 +10,13 @@ from src.utils.gendoc import list_files_recursive
 
 logger = configure_logging()
 trace_provider = configure_opentelemetry(APP_NAME, SERVER_URL, SECRET_TOKEN)
-
+app = create_app()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run the FastAPI app or generate documentation.")
+    parser = argparse.ArgumentParser(description="Run the web server app or generate documentation.")
     parser.add_argument("--demonize", action="store_true", help="Start daemon.")
     args = parser.parse_args()
-    app = create_app()
+
 
     if args.demonize:
         uvicorn.run(app, host="0.0.0.0", port=EXPOSE_PORT)

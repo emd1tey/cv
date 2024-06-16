@@ -7,7 +7,7 @@ import os
 load_dotenv()
 
 # Configuration variables
-EXPOSE_PORT = int(os.getenv('EXPOSE_PORT', 8001))
+EXPOSE_PORT = int(os.getenv('EXPOSE_PORT', 80))
 APP_NAME = os.getenv('APP_NAME', 'Organizer')
 STATIC_DIR = os.getenv('STATIC_DIR', 'static')
 OUTPUT_PDF_PATH = os.getenv('OUTPUT_PDF_PATH', 'cv/resume.pdf')
