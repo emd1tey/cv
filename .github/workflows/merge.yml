@@ -61,15 +61,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Merge Pull Request
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-          git checkout main
-          git merge --no-ff dev
-          git push origin main
+      - name: Close PR if merged
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ needs.create-merge-request.outputs.pr_url }}
+          PR_NUMBER: ${{ needs.create-merge-request.outputs.pr_number }}
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/$PR_NUMBER \
+            -d '{"state":"closed"}'
 
 
 
