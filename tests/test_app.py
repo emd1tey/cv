@@ -5,7 +5,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.__main__ import app
+from src.main import app
 from src.config.settings import configure_logging
 
 logger = configure_logging()
