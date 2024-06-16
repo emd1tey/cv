@@ -50,7 +50,7 @@ jobs:
           pr_body: Automated merge request from ${{ github.ref }} branch.
 
       - name: Set output
-        run: echo "pull_request_url=${{ steps.create_pr.outputs.pull_request_url }}" >> $GITHUB_ENV
+        run: echo "pull_request_url=${{ steps.create_pr.outputs.pr_url }}" >> $GITHUB_ENV
 
   approve-merge-request:
     runs-on: ubuntu-latest
@@ -66,6 +66,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ env.pull_request_url }}
         run: |
+          echo $GITHUB_ENV
+          echo $PR_URL
           PR_NUMBER=$(echo "${PR_URL}" | awk -F'/' '{print $NF}')
           curl -X POST \
             -H "Authorization: token ${GITHUB_TOKEN}" \
