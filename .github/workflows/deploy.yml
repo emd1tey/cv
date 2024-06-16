@@ -1,11 +1,10 @@
 name: Deploy on PR merge to main
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types:
-      - closed
+
 
 permissions:
   contents: read
@@ -22,10 +21,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
     
     - name: Checkout repository
       uses: actions/checkout@v4
