@@ -5,7 +5,7 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-md_dir = os.path.join("src/md", "cloud/")
+md_dir = os.path.join("md/", "cloud/")
 
 def make_name_clickable(records):
     """
