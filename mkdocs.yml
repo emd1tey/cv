@@ -29,12 +29,12 @@ nav:
   - ... | cloud/*.md
   - ... | hb/*.md
   - Debt: "tg"
-docs_dir: src/md
+docs_dir: md
 site_dir: static
-watch:
-  - src/md/wiki
-  - src/md/hb
-  - src/md/cloud
+#watch:
+#  - md/wiki
+#  - md/hb
+#  - md/cloud
 plugins:
   - search
   - awesome-pages

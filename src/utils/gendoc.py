@@ -8,7 +8,7 @@ import markdown
 from fastapi.openapi.docs import get_swagger_ui_html
 from fpdf import FPDF
 
-from src.config.settings import OUTPUT_PDF_PATH, STATIC_DIR
+from src.config.settings import STATIC_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -56,9 +56,10 @@ async def build_mkdocs():
 
 
 async def create_cv():
-    markdown_file_path = "src/md/cv.md"
-    html_file_path = os.path.join(STATIC_DIR, "cv/index.html")
-    pdf_output_path = os.path.join(STATIC_DIR, OUTPUT_PDF_PATH)
+    markdown_file_path = "cv.md"
+    html_file_path = os.path.join(STATIC_DIR, "cv/resume.html")
+    md_file_path = os.path.join(STATIC_DIR, "cv/resume.md")
+    pdf_output_path = os.path.join(STATIC_DIR, "cv/resume.pdf")
     logger.info(f"Generating CV: {pdf_output_path}")
 
     if os.path.exists(html_file_path) and os.path.exists(pdf_output_path):
@@ -103,10 +104,11 @@ async def create_cv():
             logger.info("File exist")
         logger.info(f"PDF file created at: {pdf_output_path}")
 
+        os.link(markdown_file_path,md_file_path)
+
     except Exception as e:
         logger.error(f"Error generating CV: {e}")
         raise
-
 
 async def create_doc(app):
     try:
