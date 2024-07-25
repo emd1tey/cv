@@ -55,11 +55,6 @@ def configure_apm(app: FastAPI):
     app.add_middleware(ElasticAPM, client=apm_client)
     return apm_client
 
-def configure_logging():
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
-    return logger
-
 
 def create_app():
     app = FastAPI(lifespan=lifespan)
