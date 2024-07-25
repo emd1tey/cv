@@ -31,10 +31,10 @@ nav:
   - Debt: "tg"
 docs_dir: md
 site_dir: static
-watch:
-  - md/wiki
-  - md/hb
-  - md/cloud
+#watch:
+#  - md/wiki
+#  - md/hb
+#  - md/cloud
 plugins:
   - search
   - awesome-pages

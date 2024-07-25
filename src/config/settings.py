@@ -30,7 +30,7 @@ ZONES_URL = 'https://api.cloudflare.com/client/v4/zones'
 
 SECRET_TOKEN = os.getenv('SECRET_TOKEN')
 SERVER_URL = "https://e7a3f6e6da864bc28f121e313a551771.apm.us-central1.gcp.cloud.es.io:443"
-
+ENVIRONMENT = os.getenv('ENVIRONMENT', "dev")
 #elastic
 OTEL_EXPORTER_OTLP_ENDPOINT = f"{SERVER_URL}"
 OTEL_EXPORTER_OTLP_HEADERS = f"Authorization=Bearer%20{SECRET_TOKEN}"

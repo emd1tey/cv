@@ -15,7 +15,7 @@ from fastapi.staticfiles import StaticFiles
 import os
 from contextlib import asynccontextmanager
 
-from src.config.settings import APP_NAME, SERVER_URL, SECRET_TOKEN, STATIC_DIR, OTEL_EXPORTER_OTLP_HEADERS
+from src.config.settings import APP_NAME, SERVER_URL, SECRET_TOKEN, STATIC_DIR, OTEL_EXPORTER_OTLP_HEADERS, ENVIRONMENT
 from src.routes import distances, cloud, debugs
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from src.utils.gendoc import create_doc
@@ -47,7 +47,7 @@ def configure_apm(app: FastAPI):
     apm_config = {
         'SERVICE_NAME': APP_NAME,
         'SERVER_URL': SERVER_URL,
-        'ENVIRONMENT': 'dev',
+        'ENVIRONMENT': ENVIRONMENT,
         'GLOBAL_LABELS': 'platform=DemoPlatform, application=DemoApplication',
         'SECRET_TOKEN': SECRET_TOKEN
     }
