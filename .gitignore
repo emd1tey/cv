@@ -29,6 +29,5 @@ static
 
 # macOS
 .DS_Store
-./md
-./static
+md
 .env
