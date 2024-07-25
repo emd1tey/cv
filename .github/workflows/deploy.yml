@@ -51,9 +51,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
-    environment:
-      name: cloudflare-pages
-      url: ${{steps.deployment.outputs.page_url}}
 
     steps:
     - name: Checkout repository
@@ -64,13 +61,6 @@ jobs:
       with:
         path: ./static
 
-    - name: Setup Pages
-      id: pages
-      uses: actions/configure-pages@v5
-
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
 
     - name: Deploy to Cloudflare Pages
       uses: cloudflare/pages-action@v1
