@@ -78,7 +78,7 @@ jobs:
         uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: 'k8s-tf-proxy'
-          location: 'us-central1-a'
+          location: 'us-central1'
 
       - name: Apply Kubernetes manifests
         run: |
