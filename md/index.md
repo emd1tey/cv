@@ -14,4 +14,5 @@ Welcome to the project documentation site!
 
 This project demonstrates how to build and deploy a FastAPI application with GitHub Actions, Docker, and MkDocs. It includes an example of serving static files, converting Markdown to HTML and PDF, and calculating geodesic distances.
 
-Refer to the [README.md](https://github.com/yourusername/yourrepository) for detailed instructions on running and developing the project.
+Refer to the [README.md]
+

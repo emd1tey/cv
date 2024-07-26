@@ -17,6 +17,7 @@ from contextlib import asynccontextmanager
 
 from src.config.settings import APP_NAME, SERVER_URL, SECRET_TOKEN, STATIC_DIR, OTEL_EXPORTER_OTLP_HEADERS, ENVIRONMENT
 from src.routes import distances, cloud, debugs
+from src.routes.cloud import get_dns_data
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from src.utils.gendoc import create_doc
 
@@ -72,6 +73,7 @@ def create_app():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Application startup")
+    await get_dns_data()
     await create_doc(app)
     yield
     logger.info("Application shutdown")

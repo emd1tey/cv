@@ -69,8 +69,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh pr merge "$PR_URL" --merge
 
-
-
   dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
