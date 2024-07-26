@@ -82,4 +82,4 @@ jobs:
 
       - name: Apply Kubernetes manifests
         run: |
-          helm upgrade --install -n cv-dev cv-dev -f helm/values.yaml ./ --debug --force 
+          helm upgrade --install -n cv-dev cv-dev -f helm/values.yaml ./helm --debug --force 
