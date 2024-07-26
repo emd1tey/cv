@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 async def create_openapi(app):
-    doc_dir = os.path.join(STATIC_DIR, "docs")
+    doc_dir = os.path.join(STATIC_DIR, "swagger")
     os.makedirs(doc_dir, exist_ok=True)
 
     swagger_html = get_swagger_ui_html(
@@ -112,8 +112,8 @@ async def create_cv():
 
 async def create_doc(app):
     try:
-        await create_openapi(app)
         await build_mkdocs()
+        await create_openapi(app)
         await create_cv()
     except Exception as e:
         logger.error(f"Error create_doc: {e}")

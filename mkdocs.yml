@@ -22,19 +22,15 @@ theme:
         icon: material/toggle-switch-off
         name: Switch to system preference
 nav:
-  - Home: "index.html"
+  - Home: "/"
   - CV: "/cv"
-  - Swagger: "/docs"
-  - ... | wiki/*.md
+  - Swagger: "/swagger"
   - ... | cloud/*.md
-  - ... | hb/*.md
-  - Debt: "tg"
+  - Debt: "/tg"
 docs_dir: md
 site_dir: static
-#watch:
-#  - md/wiki
-#  - md/hb
-#  - md/cloud
+watch:
+  - md/cloud
 plugins:
   - search
   - awesome-pages

@@ -4,7 +4,6 @@
 **Phone:** +48 507581760  
 **Email:** sakalouski.av@gmail.com  
 **Website:** [github.com/emd1tey](https://github.com/emd1tey)  
-
 **LinkedIn:** [linkedin.com/in/anatoly-sakalousky-aa4525179](https://linkedin.com/in/anatoly-sakalousky-aa4525179) 
 
 ## Objective
