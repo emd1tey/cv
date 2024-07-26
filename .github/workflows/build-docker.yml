@@ -82,12 +82,4 @@ jobs:
 
       - name: Apply Kubernetes manifests
         run: |
-          kubectl apply -f app.yaml
-
-      - name: Update Kubernetes Deployment
-        run: |
-          kubectl set image deployment/my-deployment my-container=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --record
-
-      - name: Verify Deployment
-        run: |
-          kubectl rollout status deployment/my-deployment
+          helm upgrade --install -n cv-dev cv-dev -f values.yaml ./ --debug --force 
